@@ -1,0 +1,18 @@
+import re
+
+from kwwutils import clock, printit
+from uvprog2025.Building_Large_Language_Model_Applications.src.building_large_language_model_applications._5_1 import main
+
+
+@clock
+def test_func(options, model):
+    printit("options", options)
+    printit("model", model)
+    filename = "sample.csv"
+    options["filename"] = filename
+    options["model"] = model
+    options["llm_type"] = "llm"
+    response = main(**options)
+    printit(f"{model}: response", response)
+    pat = r"gat(a|o)"
+    assert re.search(pat, response.lower())
