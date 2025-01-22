@@ -3,7 +3,6 @@ import os
 from pathlib import Path
 
 from kwwutils import clock, printit
-from langchain.schema import AIMessage
 from uvprog2025.Building_Large_Language_Model_Applications.src.building_large_language_model_applications._5_5_2_lcel_TransformChain import (
     main,
 )
@@ -32,5 +31,5 @@ def test_func(options, model):
     printit(f"4 {model}: content type", type(content))
     assert outdict["type"] == "ai"
     assert "cat" in content
-    assert "dog" in content 
+    assert "dog" in content
     assert "silvester" in content

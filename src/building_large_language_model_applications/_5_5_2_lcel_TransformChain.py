@@ -1,4 +1,4 @@
-""" 
+"""
 Defind a function rename_cat and call it via TransformChain
 """
 
@@ -15,7 +15,7 @@ template = "Use the actual name and include it in the output to Summarize this t
 
 def rename_cat_fn(inputs: dict) -> dict:
     text = inputs["input_text"]
-    new_text = text.replace('cat', 'Silvester the Cat')
+    new_text = text.replace("cat", "Silvester the Cat")
     output = {"output_text": new_text}
     return output
 
@@ -30,7 +30,7 @@ def main(options):
         cats_and_dogs = fp.read()
 
     transform_chain = TransformChain(
-        input_variables=["input_text"], 
+        input_variables=["input_text"],
         output_variables=["output_text"],
         transform=rename_cat_fn,
     )
@@ -45,60 +45,80 @@ def main(options):
 
 def Options():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--persist_directory', type=str, help='persist_directory', default=f'{_path}mydb/data_all/')
-    parser.add_argument('--embedding', type=str, help='embedding: chroma gpt4all huggingface', default='chroma')
-    parser.add_argument('--embedmodel', type=str, help='embedmodel: ', default='all-MiniLM-L6-v2')
-    parser.add_argument('--filename', type=str, help='filename', default='Cats&Dogs.txt')
-    parser.add_argument('--llm_type', type=str, help='llm_type: chat or llm', default='llm')
-    parser.add_argument('--repeatcnt', type=int, help='repeatcnt', default=1)
-    parser.add_argument('--temperature', type=float, help='temperature', default=0.1)
-    parser.add_argument('--model', type=str, help='model', default="openchat")
+    parser.add_argument(
+        "--persist_directory",
+        type=str,
+        help="persist_directory",
+        default=f"{_path}mydb/data_all/",
+    )
+    parser.add_argument(
+        "--embedding",
+        type=str,
+        help="embedding: chroma gpt4all huggingface",
+        default="chroma",
+    )
+    parser.add_argument(
+        "--embedmodel", type=str, help="embedmodel: ", default="all-MiniLM-L6-v2"
+    )
+    parser.add_argument(
+        "--filename", type=str, help="filename", default="Cats&Dogs.txt"
+    )
+    parser.add_argument(
+        "--llm_type", type=str, help="llm_type: chat or llm", default="llm"
+    )
+    parser.add_argument("--repeatcnt", type=int, help="repeatcnt", default=1)
+    parser.add_argument("--temperature", type=float, help="temperature", default=0.1)
+    parser.add_argument("--model", type=str, help="model", default="openchat")
     """
     parser.add_argument('--model', type=str, help='model')
     """
-    parser.add_argument('--models', nargs='+', default=[
-        "codebooga:latest",
-        "codellama:13b",
-        "codellama:13b-python",
-        "codellama:34b",
-        "codellama:34b-python",
-        "codellama:7b",
-        "codellama:7b-python",
-        "codeup:latest",
-        "deepseek-coder:latest",
-        "dolphin-mistral:latest",
-        "dolphin-mixtral:latest",
-##      "falcon:latest",
-        "llama-pro:latest",
-        "llama2-uncensored:latest",
-        "llama2:latest",
-        "magicoder:latest",
-##      "meditron:latest",
-        "medllama2:latest",
-        "mistral-openorca:latest",
-        "mistral:instruct",
-        "mistral:latest",
-        "mistrallite:latest",
-        "mixtral:latest",
-        "openchat:latest",
-        "orca-mini:latest",
-        "orca2:latest",
-        "phi:latest",
-        "phind-codellama:latest",
-        "sqlcoder:latest",
-##      "stable-code:latest",
-##      "starcoder:latest",
-        "starling-lm:latest",
-        "tinyllama:latest",
-        "vicuna:latest",
-        "wizardcoder:latest",
-        "wizardlm-uncensored:latest",
-##      "yarn-llama2:latest",
-        "yarn-mistral:latest",
-    ])
+    parser.add_argument(
+        "--models",
+        nargs="+",
+        default=[
+            "codebooga:latest",
+            "codellama:13b",
+            "codellama:13b-python",
+            "codellama:34b",
+            "codellama:34b-python",
+            "codellama:7b",
+            "codellama:7b-python",
+            "codeup:latest",
+            "deepseek-coder:latest",
+            "dolphin-mistral:latest",
+            "dolphin-mixtral:latest",
+            ##      "falcon:latest",
+            "llama-pro:latest",
+            "llama2-uncensored:latest",
+            "llama2:latest",
+            "magicoder:latest",
+            ##      "meditron:latest",
+            "medllama2:latest",
+            "mistral-openorca:latest",
+            "mistral:instruct",
+            "mistral:latest",
+            "mistrallite:latest",
+            "mixtral:latest",
+            "openchat:latest",
+            "orca-mini:latest",
+            "orca2:latest",
+            "phi:latest",
+            "phind-codellama:latest",
+            "sqlcoder:latest",
+            ##      "stable-code:latest",
+            ##      "starcoder:latest",
+            "starling-lm:latest",
+            "tinyllama:latest",
+            "vicuna:latest",
+            "wizardcoder:latest",
+            "wizardlm-uncensored:latest",
+            ##      "yarn-llama2:latest",
+            "yarn-mistral:latest",
+        ],
+    )
     return vars(parser.parse_args())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     options = Options()
     main(**options)

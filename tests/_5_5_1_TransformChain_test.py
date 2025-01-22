@@ -1,10 +1,8 @@
-import json
 import os
 from pathlib import Path
 
 import pytest
 from kwwutils import clock, printit
-from langchain.schema import AIMessage
 from uvprog2025.Building_Large_Language_Model_Applications.src.building_large_language_model_applications._5_5_1_TransformChain import (
     main,
 )
@@ -27,6 +25,6 @@ def test_func(options, model):
     output = response["output"].lower()
     printit(f"{model}: response", response)
     printit(f"{model}: output", output)
-    assert "cat" in output 
-    assert "dog" in output 
-    assert "silvester" in output 
+    assert "cat" in output
+    assert "dog" in output
+    assert "silvester" in output

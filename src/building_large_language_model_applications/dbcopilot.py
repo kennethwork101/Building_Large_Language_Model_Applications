@@ -3,34 +3,28 @@ from dotenv import load_dotenv
 import streamlit as st
 from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
-from langchain.tools import BaseTool, Tool, tool
-from langchain.callbacks.base import BaseCallbackHandler
-from langchain import PromptTemplate
-import pandas as pd
 from langchain.agents import create_sql_agent
 from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 from langchain.sql_database import SQLDatabase
-from langchain.agents import AgentExecutor
-from langchain.agents.agent_types import AgentType
 from langchain.callbacks import StreamlitCallbackHandler
 
 st.set_page_config(page_title="DBCopilot", page_icon="📊")
-st.header('📊 Welcome to DBCopilot, your copilot for structured databases.')
+st.header("📊 Welcome to DBCopilot, your copilot for structured databases.")
 
 load_dotenv()
 
-#os.environ["HUGGINGFACEHUB_API_TOKEN"]
-openai_api_key = os.environ['OPENAI_API_KEY']
+# os.environ["HUGGINGFACEHUB_API_TOKEN"]
+openai_api_key = os.environ["OPENAI_API_KEY"]
 
-db = SQLDatabase.from_uri('sqlite:///chinook.db')
+db = SQLDatabase.from_uri("sqlite:///chinook.db")
 
 # Import Azure OpenAI
-#from langchain.llms import AzureOpenAI
-#from langchain.chat_models import AzureChatOpenAI
+# from langchain.llms import AzureOpenAI
+# from langchain.chat_models import AzureChatOpenAI
 
 # Uncomment these lines if you want to use your AOAI instance.
-#llm = AzureOpenAI(deployment_name="text-davinci-003", model_name="text-davinci-003")
-#model = AzureChatOpenAI(deployment_name='gpt-35-turbo',openai_api_type="azure")
+# llm = AzureOpenAI(deployment_name="text-davinci-003", model_name="text-davinci-003")
+# model = AzureChatOpenAI(deployment_name='gpt-35-turbo',openai_api_type="azure")
 
 llm = OpenAI()
 model = ChatOpenAI()
@@ -88,15 +82,17 @@ LIMIT 5;
 
 agent_executor = create_sql_agent(
     prefix=prompt_prefix,
-    format_instructions = prompt_format_instructions,
+    format_instructions=prompt_format_instructions,
     llm=llm,
     toolkit=toolkit,
     verbose=True,
-    top_k=10
+    top_k=10,
 )
 
 if "messages" not in st.session_state or st.sidebar.button("Clear message history"):
-    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+    st.session_state["messages"] = [
+        {"role": "assistant", "content": "How can I help you?"}
+    ]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
@@ -109,7 +105,6 @@ if user_query:
 
     with st.chat_message("assistant"):
         st_cb = StreamlitCallbackHandler(st.container())
-        response = agent_executor.run(user_query, callbacks = [st_cb])
+        response = agent_executor.run(user_query, callbacks=[st_cb])
         st.session_state.messages.append({"role": "assistant", "content": response})
         st.write(response)
-

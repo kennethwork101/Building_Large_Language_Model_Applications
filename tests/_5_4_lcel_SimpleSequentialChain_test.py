@@ -2,7 +2,6 @@ import json
 import re
 
 from kwwutils import clock, printit
-from langchain.schema import AIMessage
 from uvprog2025.Building_Large_Language_Model_Applications.src.building_large_language_model_applications._5_4_lcel_SimpleSequentialChain import (
     main,
 )
@@ -22,4 +21,3 @@ def test_func(options, model):
     mpat = r"gat(a|o)"
     assert output["type"] == "ai"
     assert re.search(mpat, output["content"].lower())
-
