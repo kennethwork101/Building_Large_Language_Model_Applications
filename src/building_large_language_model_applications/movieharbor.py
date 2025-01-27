@@ -1,12 +1,13 @@
 import os
-from dotenv import load_dotenv
-import streamlit as st
-from langchain.llms import OpenAI
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import LanceDB
+
 import lancedb
 import pandas as pd
+import streamlit as st
+from dotenv import load_dotenv
 from langchain.chains import RetrievalQA
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.llms import OpenAI
+from langchain.vectorstores import LanceDB
 
 st.set_page_config(page_title="GlobeBotter", page_icon="🎬")
 st.header("🎬 Welcome to MovieHarbor, your favourite movie recommender")

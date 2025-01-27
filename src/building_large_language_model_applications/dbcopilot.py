@@ -1,12 +1,13 @@
 import os
-from dotenv import load_dotenv
+
 import streamlit as st
-from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
+from dotenv import load_dotenv
 from langchain.agents import create_sql_agent
 from langchain.agents.agent_toolkits import SQLDatabaseToolkit
-from langchain.sql_database import SQLDatabase
 from langchain.callbacks import StreamlitCallbackHandler
+from langchain.chat_models import ChatOpenAI
+from langchain.llms import OpenAI
+from langchain.sql_database import SQLDatabase
 
 st.set_page_config(page_title="DBCopilot", page_icon="📊")
 st.header("📊 Welcome to DBCopilot, your copilot for structured databases.")
